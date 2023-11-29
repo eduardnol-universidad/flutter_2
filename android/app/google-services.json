@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "457982227139",
+    "project_id": "recipies-90b32",
+    "storage_bucket": "recipies-90b32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457982227139:android:5968230df938247bc3e876",
+        "android_client_info": {
+          "package_name": "com.example.ac7"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHCDA6lIaJxAGvxJ_eb2lYBDgJ1KkZGSU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
