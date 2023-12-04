@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -32,10 +33,19 @@ class RegisterPageState extends State<RegisterPage> {
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter a username';
+                  }
+                  if (!value.contains('@')) {
+                    return 'Please enter a valid email';
+                  }
+                  return null;
+                },
                 controller: _usernameController,
                 decoration: const InputDecoration(
-                  labelText: 'Username',
-                  hintText: 'Enter your username',
+                  labelText: 'Mail',
+                  hintText: 'Enter your Mail',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.person),
                 ),
@@ -99,6 +109,13 @@ class RegisterPageState extends State<RegisterPage> {
     String password = _passwordController.text;
 
     print('Username: $username, Password: $password');
+
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: username, password: password)
+        .then((value) {ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Registro exitoso'),),);})
+        .catchError((error) {ScaffoldMessenger.of(context).showSnackBar(
+       SnackBar(content: Text(error.message),),);});
 
     // After authentication, you can navigate to the next screen.
     // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: 'Flutter Demo Home Page')));
