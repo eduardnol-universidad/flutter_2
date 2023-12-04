@@ -101,8 +101,5 @@ class LoginPageState extends State<LoginPage> {
       const SnackBar(content: Text('Logged In'),),);})
         .catchError((error) {ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(error.code),),);});
-
-    // After authentication, you can navigate to the next screen.
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: 'Flutter Demo Home Page')));
   }
 }
