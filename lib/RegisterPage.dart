@@ -115,7 +115,7 @@ class RegisterPageState extends State<RegisterPage> {
         .then((value) {ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Registro exitoso'),),);})
         .catchError((error) {ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(content: Text(error.message),),);});
+       SnackBar(content: Text(error.code),),);});
 
     // After authentication, you can navigate to the next screen.
     // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: 'Flutter Demo Home Page')));

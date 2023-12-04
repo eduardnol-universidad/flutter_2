@@ -1,4 +1,5 @@
 import 'package:ac7/RegisterPage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -96,7 +97,10 @@ class LoginPageState extends State<LoginPage> {
     String username = _usernameController.text;
     String password = _passwordController.text;
 
-    print('Username: $username, Password: $password');
+    FirebaseAuth.instance.signInWithEmailAndPassword(email: username, password: password).then((value) {ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Logged In'),),);})
+        .catchError((error) {ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(error.code),),);});
 
     // After authentication, you can navigate to the next screen.
     // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: 'Flutter Demo Home Page')));
