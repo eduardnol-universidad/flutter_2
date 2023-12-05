@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:ac7/LoginPage.dart';
 import 'package:ac7/RecipiesList.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:image_picker/image_picker.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,7 +53,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  late String imageFile;
   void _incrementCounter() {
     TextEditingController textFieldControllerName = TextEditingController();
     TextEditingController textFieldControllerDescription = TextEditingController();
@@ -57,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (context) {
         return  AlertDialog(
-          title: const Text('Alert'),
+          title: const Text('Add a Recipie'),
           content: Wrap(
             children: [Column(
               children: [
@@ -87,6 +91,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     labelText: 'Enter your Recipie Description',
                   ),
                 ),
+                ElevatedButton(onPressed:  () =>  { selectImageAction()}, child: Text("Select Image")),
+
               ],
             ),],
           ),
@@ -94,6 +100,19 @@ class _MyHomePageState extends State<MyHomePage> {
           Navigator.of(context).pop();}, child: const Text("Save"))],);
       },
     );
+  }
+
+  Future<void> selectImageAction() async {
+     XFile? file =  await selectImage();
+     await uploadImageToFirebase(file);
+
+  }
+
+
+
+  Future<XFile?> selectImage() async {
+    final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      return image;
   }
 
   void updateDataToFirebase(String recipieName, String recipieDescription) async {
@@ -104,6 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
     await FirebaseFirestore.instance.collection('recipies').add({
       'name': recipieName,
       'description': recipieDescription,
+      'image': imageFile,
     });
     //Show snackbar
     ScaffoldMessenger.of(context).showSnackBar(
@@ -137,5 +157,19 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  uploadImageToFirebase(XFile? file) {
+    if (file == null) {
+      return;
+    }
+    final String fileName = file.path.split('/').last;
+    final destination = 'files/$fileName';
+    final Reference ref = FirebaseStorage.instance.ref().child(destination);
+    final UploadTask task = ref.putFile(File(file.path));
+    task.whenComplete(() async {
+      imageFile = await ref.getDownloadURL();
+      setState(() {});
+    });
   }
 }

@@ -30,10 +30,12 @@ class _RecipiesListState extends State<RecipiesList> {
       for (var element in event.docs) {
         recipieRetrievalList.add(Recipie(
             description: element.data()['description'],
-            name: element.data()['name']));
+            name: element.data()['name'],
+            url: element.data()['image']));
       }
 
-      recipieRetrievalList.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+      recipieRetrievalList
+          .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
       setState(() {});
     });
@@ -52,8 +54,11 @@ class _RecipiesListState extends State<RecipiesList> {
                     child: ListTile(
                       title: Text(recipieRetrievalList[index].name),
                       subtitle: Text(recipieRetrievalList[index].description),
-                      leading: const CircleAvatar(
-                        child: Text('R'),
+                      leading: CircleAvatar(
+                        child: Image.network(
+                          recipieRetrievalList[index].url,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   );
