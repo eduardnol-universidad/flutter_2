@@ -48,25 +48,3 @@ class RecipiesList extends StatelessWidget {
   }
 }
 
-class ListOfRecipiesDisplay extends StatelessWidget {
-  const ListOfRecipiesDisplay({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              title: Text('Recipie $index'),
-              subtitle: const Text('This is a description of the recipie'),
-              leading: const CircleAvatar(
-                child: Text('R'),
-              ),
-            ),
-          );
-        });
-  }
-}
