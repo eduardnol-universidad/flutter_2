@@ -44,38 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyC4uvfeoz7qWuHQ5moBIZDfEBxWZE4fLr8',
-    appId: '1:457982227139:web:bba5fc828bc804c3c3e876',
-    messagingSenderId: '457982227139',
-    projectId: 'recipies-90b32',
-    authDomain: 'recipies-90b32.firebaseapp.com',
-    storageBucket: 'recipies-90b32.appspot.com',
-    measurementId: 'G-TMYSNPQ78L',
+    apiKey: 'AIzaSyDeG6hcAtRV7CZARj6VQB_UFrinPPGgpbg',
+    appId: '1:794337191583:web:2f3c1ed361eb9b8b7fa4aa',
+    messagingSenderId: '794337191583',
+    projectId: 'recipies2-aa141',
+    authDomain: 'recipies2-aa141.firebaseapp.com',
+    storageBucket: 'recipies2-aa141.appspot.com',
+    measurementId: 'G-G4L3285HW3',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAHCDA6lIaJxAGvxJ_eb2lYBDgJ1KkZGSU',
-    appId: '1:457982227139:android:5968230df938247bc3e876',
-    messagingSenderId: '457982227139',
-    projectId: 'recipies-90b32',
-    storageBucket: 'recipies-90b32.appspot.com',
+    apiKey: 'AIzaSyCKsjGYFj5Das5-u6BHQg7feao8RrdAjys',
+    appId: '1:794337191583:android:1381decabc3a90927fa4aa',
+    messagingSenderId: '794337191583',
+    projectId: 'recipies2-aa141',
+    storageBucket: 'recipies2-aa141.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAjR7HdLN8uQqtCZ8cOAL-jrZwDnvZ8zJw',
-    appId: '1:457982227139:ios:85086317c431cc0ac3e876',
-    messagingSenderId: '457982227139',
-    projectId: 'recipies-90b32',
-    storageBucket: 'recipies-90b32.appspot.com',
+    apiKey: 'AIzaSyBWqOioc4iUZ8WAGNZg0H5m1UrJ6u9bZAo',
+    appId: '1:794337191583:ios:c658f4c565caba9d7fa4aa',
+    messagingSenderId: '794337191583',
+    projectId: 'recipies2-aa141',
+    storageBucket: 'recipies2-aa141.appspot.com',
     iosBundleId: 'com.example.ac7',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAjR7HdLN8uQqtCZ8cOAL-jrZwDnvZ8zJw',
-    appId: '1:457982227139:ios:b2811967d775d146c3e876',
-    messagingSenderId: '457982227139',
-    projectId: 'recipies-90b32',
-    storageBucket: 'recipies-90b32.appspot.com',
+    apiKey: 'AIzaSyBWqOioc4iUZ8WAGNZg0H5m1UrJ6u9bZAo',
+    appId: '1:794337191583:ios:6d1e0e8d5c099f2a7fa4aa',
+    messagingSenderId: '794337191583',
+    projectId: 'recipies2-aa141',
+    storageBucket: 'recipies2-aa141.appspot.com',
     iosBundleId: 'com.example.ac7.RunnerTests',
   );
 }
