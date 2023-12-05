@@ -2,49 +2,61 @@ import 'package:ac7/Model/RecipieModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class RecipiesList extends StatelessWidget {
+class RecipiesList extends StatefulWidget {
   const RecipiesList({Key? key}) : super(key: key);
 
-  Future<List<Recipie>> retrieveRecipies() async {
-    var downloadedData =
-    await FirebaseFirestore.instance.collection('recipies').get();
-    List<Recipie> recipieRetrievalList = [];
-    for (var element in downloadedData.docs) {
-      recipieRetrievalList.add(Recipie(
-        description: element.data()['description'], name: element.data()['name']
-      ));
-    }
-    return recipieRetrievalList;
+  @override
+  _RecipiesListState createState() => _RecipiesListState();
+}
+
+class _RecipiesListState extends State<RecipiesList> {
+  List<Recipie> recipieRetrievalList = [];
+  bool _isLoadingData = true;
+
+  @override
+  initState() {
+    super.initState();
+    retrieveRemoteData();
+  }
+
+  retrieveRemoteData() async {
+    FirebaseFirestore.instance
+        .collection('recipies')
+        .snapshots()
+        .listen((event) {
+      _isLoadingData = false;
+      recipieRetrievalList.clear();
+
+      for (var element in event.docs) {
+        recipieRetrievalList.add(Recipie(
+            description: element.data()['description'],
+            name: element.data()['name']));
+      }
+
+      recipieRetrievalList.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: retrieveRecipies(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          print(snapshot.error);
-          return const Text('Connection ERROR');
-        } else {
-          List<Recipie>? recipieRetrievalList = snapshot.data;
-          return ListView.builder(
-              itemCount: recipieRetrievalList!.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    title: Text(recipieRetrievalList[index].name),
-                    subtitle:  Text(recipieRetrievalList[index].description),
-                    leading: const CircleAvatar(
-                      child: Text('R'),
+    return _isLoadingData
+        ? const Center(child: CircularProgressIndicator())
+        : recipieRetrievalList.isEmpty
+            ? const Center(child: Text('No data found'))
+            : ListView.builder(
+                itemCount: recipieRetrievalList.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      title: Text(recipieRetrievalList[index].name),
+                      subtitle: Text(recipieRetrievalList[index].description),
+                      leading: const CircleAvatar(
+                        child: Text('R'),
+                      ),
                     ),
-                  ),
-                );
-              });
-        }
-      },
-    );
+                  );
+                });
   }
 }
-
